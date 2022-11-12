@@ -11,6 +11,7 @@ import dummyBlogPosts from "../dummy_data/blogPosts";
 import DialogSelector from "./register_login/DialogSelector";
 import Routing from "./Routing";
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
+import HeadSection from "./home/HeadSection";
 
 AOS.init({ once: true });
 
@@ -32,13 +33,13 @@ function Main(props) {
   const selectHome = useCallback(() => {
     smoothScrollTop();
     document.title =
-      "WaVer - Free template for building a SaaS or admin application";
+      "ShoeLife - Keep Track of Your Shoes for Free";
     setSelectedTab("Home");
   }, [setSelectedTab]);
 
   const selectBlog = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Blog";
+    document.title = "ShoeLife - Blog";
     setSelectedTab("Blog");
   }, [setSelectedTab]);
 
@@ -127,6 +128,13 @@ function Main(props) {
         handleMobileDrawerOpen={handleMobileDrawerOpen}
         handleMobileDrawerClose={handleMobileDrawerClose}
       />
+      {/* <HeadSection
+        openLoginDialog={openLoginDialog}
+        openRegisterDialog={openRegisterDialog}
+        mobileDrawerOpen={isMobileDrawerOpen}
+        handleMobileDrawerOpen={handleMobileDrawerOpen}
+        handleMobileDrawerClose={handleMobileDrawerClose}
+      /> */}
       <Routing
         blogPosts={blogPosts}
         selectHome={selectHome}

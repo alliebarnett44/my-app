@@ -108,8 +108,8 @@ const styles = (theme) => ({
     backgroundColor: `${theme.palette.primary.main} !important`,
   },
   brandText: {
-    fontFamily: "'Baloo Bhaijaan', cursive",
-    fontWeight: 400,
+    fontFamily: "'American Typewriter', serif",
+    fontWeight: 600,
   },
   username: {
     paddingLeft: 0,
@@ -182,24 +182,24 @@ function NavBar(props) {
         mobile: <ImageIcon className="text-white" />,
       },
     },
-    {
-      link: "/c/subscription",
-      name: "Subscription",
-      onClick: closeMobileDrawer,
-      icon: {
-        desktop: (
-          <AccountBalanceIcon
-            className={
-              selectedTab === "Subscription"
-                ? classes.textPrimary
-                : "text-white"
-            }
-            fontSize="small"
-          />
-        ),
-        mobile: <AccountBalanceIcon className="text-white" />,
-      },
-    },
+    // {
+    //   link: "/c/subscription",
+    //   name: "Subscription",
+    //   onClick: closeMobileDrawer,
+    //   icon: {
+    //     desktop: (
+    //       <AccountBalanceIcon
+    //         className={
+    //           selectedTab === "Subscription"
+    //             ? classes.textPrimary
+    //             : "text-white"
+    //         }
+    //         fontSize="small"
+    //       />
+    //     ),
+    //     mobile: <AccountBalanceIcon className="text-white" />,
+    //   },
+    // },
     {
       link: "/",
       name: "Logout",
@@ -235,7 +235,7 @@ function NavBar(props) {
                 display="inline"
                 color="primary"
               >
-                Wa
+                Shoe
               </Typography>
               <Typography
                 variant="h4"
@@ -243,7 +243,7 @@ function NavBar(props) {
                 display="inline"
                 color="secondary"
               >
-                Ver
+                Life
               </Typography>
             </Hidden>
           </Box>
@@ -253,14 +253,14 @@ function NavBar(props) {
             alignItems="center"
             width="100%"
           >
-            {isWidthUpSm && (
+            {/* {isWidthUpSm && (
               <Box mr={3}>
                 <Balance
                   balance={2573}
                   openAddBalanceDialog={openAddBalanceDialog}
                 />
               </Box>
-            )}
+            )} */}
             <MessagePopperButton messages={messages} />
             <ListItem
               disableGutters
