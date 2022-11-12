@@ -128,13 +128,13 @@ function Main(props) {
         handleMobileDrawerOpen={handleMobileDrawerOpen}
         handleMobileDrawerClose={handleMobileDrawerClose}
       />
-      {/* <HeadSection
+      <HeadSection
         openLoginDialog={openLoginDialog}
         openRegisterDialog={openRegisterDialog}
         mobileDrawerOpen={isMobileDrawerOpen}
         handleMobileDrawerOpen={handleMobileDrawerOpen}
         handleMobileDrawerClose={handleMobileDrawerClose}
-      /> */}
+      />
       <Routing
         blogPosts={blogPosts}
         selectHome={selectHome}

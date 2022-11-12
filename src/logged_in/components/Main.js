@@ -328,6 +328,9 @@ function Main(props) {
         selectedTab={selectedTab}
         messages={messages}
         openAddBalanceDialog={openAddBalanceDialog}
+        pushMessageToSnackbar={pushMessageToSnackbar}
+        targets={targets}
+        setTargets={setTargets}
       />
       <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}

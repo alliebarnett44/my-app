@@ -62,18 +62,13 @@ const rows = [
     label: "",
   },
   {
-    id: "name",
+    id: "Shoe Brand",
     numeric: false,
-    label: "Name",
+    label: "Shoe Brand",
   },
-  { id: "number1", numeric: false, label: "Category 1" },
-  { id: "number2", numeric: false, label: "Category 2" },
-  { id: "number3", numeric: false, label: "Category 3" },
-  {
-    id: "number4",
-    numeric: false,
-    label: "Category 4",
-  },
+  { id: "number1", numeric: false, label: "Shoe Model" },
+  { id: "number2", numeric: false, label: "Mileage" },
+  { id: "number3", numeric: false, label: "Condition" },
   {
     id: "actions",
     numeric: false,
@@ -119,7 +114,7 @@ function CustomTable(props) {
       _targets.splice(index, 1);
       setTargets(_targets);
       pushMessageToSnackbar({
-        text: "Your friend has been removed",
+        text: "Your shoe has been removed",
       });
     }, 1500);
   }, [
@@ -181,9 +176,7 @@ function CustomTable(props) {
         content={
           deleteTargetDialogRow ? (
             <span>
-              {"Do you really want to remove the friend "}
-              <b>{deleteTargetDialogRow.name}</b>
-              {" from your list?"}
+              {"Do you really want to remove this shoe from your list? "}
             </span>
           ) : null
         }
@@ -228,9 +221,6 @@ function CustomTable(props) {
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.number3}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {row.number4}
                       </TableCell>
                       <TableCell component="th" scope="row">
                         <Box display="flex" justifyContent="flex-end">
