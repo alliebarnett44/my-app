@@ -94,6 +94,10 @@ function HeadSection(props) {
   const { classes, theme } = props;
   const isWidthUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
+  const openRegisterDialog = () => {
+    console.log('clicked')
+  }
+
   return (
     <Fragment>
       <div className={classNames("lg-p-top", classes.wrapper)}>
@@ -115,8 +119,7 @@ function HeadSection(props) {
                     >
                       <Box mb={4}>
                         <Typography variant={isWidthUpLg ? "h3" : "h4"}>
-                          Free Template for building a SaaS app using
-                          Material-UI
+                          Keep Track of your Running Shoe Health for Free!
                         </Typography>
                       </Box>
                       <div>
@@ -125,8 +128,7 @@ function HeadSection(props) {
                             variant={isWidthUpLg ? "h6" : "body1"}
                             color="textSecondary"
                           >
-                            Lorem ipsum dolor sit amet, consetetur sadipscing
-                            elitr, sed diam nonumy eirmod tempor invidunt
+                            Keep track of the condition of your shoes, track mileage, and interact with friends. All for free! 
                           </Typography>
                         </Box>
                         <Button
@@ -135,9 +137,9 @@ function HeadSection(props) {
                           fullWidth
                           className={classes.extraLargeButton}
                           classes={{ label: classes.extraLargeButtonLabel }}
-                          href="https://github.com/dunky11/react-saas-template"
+                          onClick={openRegisterDialog}
                         >
-                          Download from GitHub
+                          Get Started
                         </Button>
                       </div>
                     </Box>

@@ -173,7 +173,7 @@ function CustomTable(props) {
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>Some user data</Typography>
+        <Typography>View your Shoe Data Here</Typography>
       </AccordionSummary>
       <ConfirmationDialog
         open={isDeleteTargetDialogOpen}

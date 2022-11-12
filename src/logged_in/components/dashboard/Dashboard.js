@@ -23,7 +23,7 @@ function Dashboard(props) {
   return (
     <Fragment>
       <StatisticsArea CardChart={CardChart} data={statistics} />
-      <Box mt={4}>
+      {/* <Box mt={4}>
         <Typography variant="subtitle1" gutterBottom>
           Your Account
         </Typography>
@@ -31,13 +31,13 @@ function Dashboard(props) {
       <AccountInformationArea
         isAccountActivated={isAccountActivated}
         toggleAccountActivation={toggleAccountActivation}
-      />
+      /> */}
       <Box mt={4}>
         <Typography variant="subtitle1" gutterBottom>
-          Settings
+          Shoe Data
         </Typography>
       </Box>
-      <SettingsArea pushMessageToSnackbar={pushMessageToSnackbar} />
+      {/* <SettingsArea pushMessageToSnackbar={pushMessageToSnackbar} /> */}
       <UserDataArea
         pushMessageToSnackbar={pushMessageToSnackbar}
         targets={targets}

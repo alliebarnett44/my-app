@@ -36,8 +36,8 @@ const styles = (theme) => ({
     },
   },
   brandText: {
-    fontFamily: "'Baloo Bhaijaan', cursive",
-    fontWeight: 400,
+    fontFamily: "'American Typewriter', serif",
+    fontWeight: 600,
     color: theme.palette.common.white,
   },
   footerLinks: {
@@ -76,11 +76,11 @@ const styles = (theme) => ({
 const infos = [
   {
     icon: <PhoneIcon />,
-    description: "+1 555 123456",
+    description: "+1 980 8296563",
   },
   {
     icon: <MailIcon />,
-    description: "support@company.com",
+    description: "allie.barnett44@gmail.com",
   },
 ];
 
@@ -99,7 +99,7 @@ const socialIcons = [
       </svg>
     ),
     label: "Github",
-    href: "https://github.com/dunky11/react-saas-template",
+    href: "https://github.com/alliebarnett44/my-app",
   },
   {
     icon: (
@@ -224,11 +224,10 @@ function Footer(props) {
           </Hidden>
           <Grid item xs={12} md={6} lg={4}>
             <Typography variant="h6" paragraph className="text-white">
-              About the Company
+              About ShoeLife
             </Typography>
             <Typography style={{ color: "#8f9296" }} paragraph>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-              euismod convallis velit, eu auctor lacus vehicula sit amet.
+              This app started with a forgetful girl who wanted to stop running her shoe to the ground. Simple as that! 
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (
