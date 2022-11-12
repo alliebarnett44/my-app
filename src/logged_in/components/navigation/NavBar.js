@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {
@@ -18,6 +18,7 @@ import {
   Box,
 } from "@mui/material";
 import withStyles from "@mui/styles/withStyles";
+import DeleteIcon from "@mui/icons-material/Delete";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ImageIcon from "@mui/icons-material/Image";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
@@ -29,6 +30,7 @@ import SideDrawer from "./SideDrawer";
 import Balance from "./Balance";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 
 const styles = (theme) => ({
   appBar: {
@@ -126,12 +128,19 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, openAddBalanceDialog, theme } = props;
+  const { selectedTab, messages, classes, openAddBalanceDialog, theme, targets, pushMessageToSnackbar, setTargets } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
+  const [isDeleteTargetDialogOpen, setIsDeleteTargetDialogOpen] = useState(
+    false
+  );
+  const [deleteTargetDialogRow, setDeleteTargetDialogRow] = useState(null);
+  const [isDeleteTargetLoading, setIsDeleteTargetLoading] = useState(false);
   const isWidthUpSm = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const history = useHistory();
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true);
@@ -148,6 +157,49 @@ function NavBar(props) {
   const closeDrawer = useCallback(() => {
     setIsSideDrawerOpen(false);
   }, [setIsSideDrawerOpen]);
+
+  const handleDeleteTargetDialogClose = useCallback(() => {
+    setIsDeleteTargetDialogOpen(false);
+  }, [setIsDeleteTargetDialogOpen]);
+
+  const handleDeleteTargetDialogOpen = useCallback(
+    () => {
+      setIsDeleteTargetDialogOpen(true);
+      setDeleteTargetDialogRow();
+      console.log('done')
+    },
+    [setIsDeleteTargetDialogOpen, setDeleteTargetDialogRow]
+  );
+
+  const deleteTarget = useCallback(() => {
+    setIsDeleteTargetLoading(true);
+    setTimeout(() => {
+      setIsDeleteTargetDialogOpen(false);
+      setIsDeleteTargetLoading(false);
+      const _targets = [...targets];
+      const index = _targets.findIndex(
+        (element) => element.id === deleteTargetDialogRow.id
+      );
+      _targets.splice(index, 1);
+      setTargets(_targets);
+      pushMessageToSnackbar({
+        text: "Your shoe has been removed",
+      });
+    }, 1500);
+  }, [
+    setIsDeleteTargetDialogOpen,
+    setIsDeleteTargetLoading,
+    pushMessageToSnackbar,
+    setTargets,
+    deleteTargetDialogRow,
+    targets,
+  ]);
+
+  const logOut = useCallback(() => {
+    let path = `/`; 
+    history.push(path);
+  });
+
 
   const menuItems = [
     {
@@ -200,16 +252,17 @@ function NavBar(props) {
     //     mobile: <AccountBalanceIcon className="text-white" />,
     //   },
     // },
-    {
-      link: "/",
-      name: "Logout",
-      icon: {
-        desktop: (
-          <PowerSettingsNewIcon className="text-white" fontSize="small" />
-        ),
-        mobile: <PowerSettingsNewIcon className="text-white" />,
-      },
-    },
+    // {
+    //   link: "/",
+    //   name: "Logout",
+    //   onClick: handleDeleteTargetDialogOpen,
+    //   icon: {
+    //     desktop: (
+    //       <PowerSettingsNewIcon className="text-white" fontSize="small" />
+    //     ),
+    //     mobile: <PowerSettingsNewIcon className="text-white" />,
+    //   },
+    // },
   ];
   return (
     <Fragment>
@@ -300,6 +353,18 @@ function NavBar(props) {
           }}
           open={false}
         >
+        <ConfirmationDialog
+          open={isDeleteTargetDialogOpen}
+          title="Confirmation"
+          content={
+              <span>
+                {"Do you really want to log out of your account? "}
+              </span>
+          }
+          onClose={handleDeleteTargetDialogClose}
+          onConfirm={logOut}
+          loading={isDeleteTargetLoading}
+       />
           <List>
             {menuItems.map((element, index) => (
               <Link
@@ -338,6 +403,15 @@ function NavBar(props) {
               </Link>
             ))}
           </List>
+          <IconButton
+          className={classes.menuLink}
+          onClick={() => {
+            handleDeleteTargetDialogOpen();
+          }}
+          aria-label="Delete"
+          size="large">
+          <PowerSettingsNewIcon className="text-white" fontSize="small" />
+          </IconButton>
         </Drawer>
       </Hidden>
       <NavigationDrawer
@@ -364,3 +438,26 @@ NavBar.propTypes = {
 };
 
 export default withStyles(styles, { withTheme: true })(NavBar);
+
+
+{/* <IconButton
+            // className={classes.menuLink}
+            className="text-white"
+            onClick={() => {
+              handleDeleteTargetDialogOpen();
+            }}
+            aria-label="Delete"
+            size="large">
+            <PowerSettingsNewIcon className="text-white" fontSize="small" />
+            {/* <DeleteIcon className={classes.blackIcon} /> */}
+
+
+{/* <Link
+              to="/"
+              className={classes.menuLink}
+            ></Link> */}
+             
+
+
+
+

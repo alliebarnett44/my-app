@@ -11,7 +11,7 @@ function Home(props) {
   }, [selectHome]);
   return (
     <Fragment>
-      <HeadSection />
+      {/* <HeadSection /> */}
       <FeatureSection />
       {/* <PricingSection /> */}
     </Fragment>

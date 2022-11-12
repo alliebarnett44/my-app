@@ -91,12 +91,12 @@ const styles = (theme) => ({
 });
 
 function HeadSection(props) {
-  const { classes, theme } = props;
+  const { classes, theme, openRegisterDialog, handleMobileDrawerOpen, dialogOpen } = props;
   const isWidthUpLg = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const openRegisterDialog = () => {
-    console.log('clicked')
-  }
+  // const openRegisterDialog = () => {
+  //   console.log('clicked')
+  // }
 
   return (
     <Fragment>
