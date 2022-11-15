@@ -30,6 +30,7 @@ function shuffle(array) {
 }
 
 function Main(props) {
+  console.log('testing')
   const { classes } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
