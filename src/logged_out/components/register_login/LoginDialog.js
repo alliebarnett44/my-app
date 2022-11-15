@@ -44,25 +44,59 @@ function LoginDialog(props) {
   const loginEmail = useRef();
   const loginPassword = useRef();
 
-  const login = useCallback(() => {
-    setIsLoading(true);
+  const login = async () => {
+    // setIsLoading(true);
     setStatus(null);
-    if (loginEmail.current.value !== "test@web.com") {
-      setTimeout(() => {
-        setStatus("invalidEmail");
-        setIsLoading(false);
-      }, 1500);
-    } else if (loginPassword.current.value !== "HaRzwc") {
-      setTimeout(() => {
-        setStatus("invalidPassword");
-        setIsLoading(false);
-      }, 1500);
-    } else {
+    try {
+    const call = await fetch("https://aq4k8seahj.execute-api.us-east-1.amazonaws.com/validate", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Accept': "*/*"
+        },
+        body: JSON.stringify(
+          {
+              email: loginEmail.current.value,
+              password: loginPassword.current.value
+          })
+        });
+    const response = await call.json();
+    console.log(response);
+    if (response == 'user validated') {
       setTimeout(() => {
         history.push("/c/dashboard");
       }, 150);
     }
-  }, [setIsLoading, loginEmail, loginPassword, history, setStatus]);
+    }
+    catch (err) {
+      console.log(err)
+    }
+    // console.log(status);
+    // if (loginEmail.current.value !== "test@web.com") {
+    //   const response = await res.json();
+    //   console.log(response);
+    //   setTimeout(() => {
+    //     setStatus("invalidEmail");
+    //     setIsLoading(false);
+    //   }, 1500);
+    // } else if (loginPassword.current.value !== "HaRzwc") {
+    //   setTimeout(() => {
+    //     setStatus("invalidPassword");
+    //     setIsLoading(false);
+    //   }, 1500);
+    // } else {
+    //   setTimeout(() => {
+    //     history.push("/c/dashboard");
+    //   }, 150);
+    // }
+  };
+
+  const handleSubmitForm = (e) => {  
+    e.preventDefault(); 
+    login();
+  }
+
 
   return (
     <Fragment>
@@ -70,10 +104,7 @@ function LoginDialog(props) {
         open
         onClose={onClose}
         loading={isLoading}
-        onFormSubmit={(e) => {
-          e.preventDefault();
-          login();
-        }}
+        onFormSubmit={handleSubmitForm}
         hideBackdrop
         headline="Login"
         content={

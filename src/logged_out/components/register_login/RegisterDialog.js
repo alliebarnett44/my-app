@@ -6,6 +6,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import HighlightedInformation from "../../../shared/components/HighlightedInformation";
 import ButtonCircularProgress from "../../../shared/components/ButtonCircularProgress";
 import VisibilityPasswordTextField from "../../../shared/components/VisibilityPasswordTextField";
+import { v4 as uuidv4 } from 'uuid';
 
 const styles = (theme) => ({
   link: {
@@ -25,15 +26,22 @@ const styles = (theme) => ({
 });
 
 function RegisterDialog(props) {
-  const { setStatus, theme, onClose, openTermsDialog, status, classes } = props;
+  const { setStatus, theme, onClose, openTermsDialog, status, classes, history } = props;
   const [isLoading, setIsLoading] = useState(false);
+  const [firstNameStatus, setFirstNameStatus] = useState(null);
+  const [lastNameStatus, setLastNameStatus] = useState(null);
   const [hasTermsOfServiceError, setHasTermsOfServiceError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const registerTermsCheckbox = useRef();
   const registerPassword = useRef();
   const registerPasswordRepeat = useRef();
+  const registerEmail = useRef();
+  const registerUsername = useRef();
+  const registerFirstName = useRef();
+  const registerLastName = useRef();
 
-  const register = useCallback(() => {
+
+  const register = useCallback(async () => {
     if (!registerTermsCheckbox.current.checked) {
       setHasTermsOfServiceError(true);
       return;
@@ -49,6 +57,34 @@ function RegisterDialog(props) {
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
+    try {
+      const call = await fetch("https://aq4k8seahj.execute-api.us-east-1.amazonaws.com/shoes", {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Accept': "*/*"
+          },
+          body: JSON.stringify(
+            {
+              id: uuidv4(),
+              firstName: registerFirstName.current.value,
+              lastName: registerLastName.current.value,
+              username: registerUsername.current.value,
+              email: registerEmail.current.value,
+              password: registerPassword.current.value,
+            })
+          });
+      const response = await call.json();
+      console.log(response);
+      // if (response == 'user validated') {
+
+      // }
+      }
+      catch (err) {
+        console.log(err)
+      }
+    console.log('User Registered')
   }, [
     setIsLoading,
     setStatus,
@@ -57,6 +93,7 @@ function RegisterDialog(props) {
     registerPasswordRepeat,
     registerTermsCheckbox,
   ]);
+  
 
   return (
     <FormDialog
@@ -82,6 +119,61 @@ function RegisterDialog(props) {
             autoFocus
             autoComplete="off"
             type="email"
+            inputRef={registerEmail}
+            onChange={(e) => {
+              if (status === "invalidEmail") {
+                setStatus(null);
+              }
+            }}
+            FormHelperTextProps={{ error: true }}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            error={status === "invalidUsername"}
+            label="Username"
+            autoFocus
+            autoComplete="off"
+            type="username"
+            inputRef={registerUsername}
+            onChange={() => {
+              if (status === "invalidUsername") {
+                setStatus(null);
+              }
+            }}
+            FormHelperTextProps={{ error: true }}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            error={status === "invalidName"}
+            label="First Name"
+            autoFocus
+            autoComplete="off"
+            type="firstName"
+            inputRef={registerFirstName}
+            onChange={() => {
+              if (status === "invalidEmail") {
+                setStatus(null);
+              }
+            }}
+            FormHelperTextProps={{ error: true }}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            error={status === "invalidName"}
+            label="Last Name"
+            autoFocus
+            autoComplete="off"
+            type="lastName"
+            inputRef={registerLastName}
             onChange={() => {
               if (status === "invalidEmail") {
                 setStatus(null);
@@ -206,7 +298,7 @@ function RegisterDialog(props) {
             </HighlightedInformation>
           ) : (
             <HighlightedInformation>
-              Registration is disabled until we go live.
+              Click to register
             </HighlightedInformation>
           )}
         </Fragment>
