@@ -328,7 +328,7 @@ function NavBar(props) {
                 <ListItemText
                   className={classes.username}
                   primary={
-                    <Typography color="textPrimary">Username</Typography>
+                    <Typography color="textPrimary">ambarn</Typography>
                   }
                 />
               )}

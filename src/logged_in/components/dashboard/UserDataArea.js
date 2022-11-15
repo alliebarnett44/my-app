@@ -18,6 +18,7 @@ import PlayCirlceOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
 import EnhancedTableHead from "../../../shared/components/EnhancedTableHead";
 import stableSort from "../../../shared/functions/stableSort";
 import getSorting from "../../../shared/functions/getSorting";
@@ -224,30 +225,16 @@ function CustomTable(props) {
                       </TableCell>
                       <TableCell component="th" scope="row">
                         <Box display="flex" justifyContent="flex-end">
-                          {row.isActivated ? (
-                            <IconButton
-                              className={classes.iconButton}
-                              onClick={() => {
-                                toggleTarget(row);
-                              }}
-                              aria-label="Pause"
-                              size="large">
-                              <PauseCircleOutlineIcon
-                                className={classes.blackIcon}
-                              />
-                            </IconButton>
-                          ) : (
-                            <IconButton
-                              className={classes.iconButton}
-                              color="primary"
-                              onClick={() => {
-                                toggleTarget(row);
-                              }}
-                              aria-label="Resume"
-                              size="large">
-                              <PlayCirlceOutlineIcon />
-                            </IconButton>
-                          )}
+                          <IconButton
+                            className={classes.iconButton}
+                            color="primary"
+                            onClick={() => {
+                              toggleTarget(row);
+                            }}
+                            aria-label="Resume"
+                            size="large">
+                            <EditIcon />
+                          </IconButton>
                           <IconButton
                             className={classes.iconButton}
                             onClick={() => {

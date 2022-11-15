@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -14,6 +15,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import WaveBorder from "../../../shared/components/WaveBorder";
 import ColoredButton from "../../../shared/components/ColoredButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import emailjs from '@emailjs/browser'
 
 const styles = (theme) => ({
   footerInner: {
@@ -155,6 +157,28 @@ function Footer(props) {
   const { classes, theme } = props;
   const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
 
+  const [message, setMessage] = useState("")
+  const [showSuccess, setShowSuccess] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log( message)
+    emailjs
+      .sendForm(
+        'service_wdtf27j', 'template_zgnsqwo', e.target, 'Lbe_TYbgXKknmQBKI'
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setMessage('')
+        },
+        (error) => {
+          console.log(error.text)
+        }
+      )
+    setShowSuccess('Message Sent!');
+  }
+
   return (
     <footer className="lg-p-top">
       <WaveBorder
@@ -165,7 +189,7 @@ function Footer(props) {
       <div className={classes.footerInner}>
         <Grid container spacing={isWidthUpMd ? 10 : 5}>
           <Grid item xs={12} md={6} lg={4}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Box display="flex" flexDirection="column">
                 <Box mb={1}>
                   <TextField
@@ -179,6 +203,8 @@ function Footer(props) {
                     rows={4}
                     fullWidth
                     required
+                    value={message}
+                    onChange={(e)=>setMessage(e.target.value)}
                   />
                 </Box>
                 <ColoredButton
@@ -190,6 +216,7 @@ function Footer(props) {
                 </ColoredButton>
               </Box>
             </form>
+            {showSuccess}
           </Grid>
           <Hidden lgDown>
             <Grid item xs={12} md={6} lg={4}>
