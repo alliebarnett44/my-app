@@ -16,9 +16,12 @@ function Dashboard(props) {
     targets,
     setTargets,
     isAccountActivated,
+    fetchShoesForRunner
   } = props;
 
   useEffect(selectDashboard, [selectDashboard]);
+
+  console.log(fetchShoesForRunner)
 
   return (
     <Fragment>

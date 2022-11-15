@@ -53,6 +53,21 @@ function Main(props) {
   const [isAddBalanceDialogOpen, setIsAddBalanceDialogOpen] = useState(false);
   const [pushMessageToSnackbar, setPushMessageToSnackbar] = useState(null);
 
+
+  //Load Shoe Data
+  const fetchShoesForRunner = useCallback(async () => {
+    // const response = await fetch(`http://localhost:6060/runner/${email}`);
+    const response = await fetch(`https://aq4k8seahj.execute-api.us-east-1.amazonaws.com/records/poopy`, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json',
+        'accept': '*/*'
+      },
+    })
+    const data = await response.json();
+    console.log(data.Item.shoe_records);
+  })
+
   const fetchRandomTargets = useCallback(() => {
     const targets = [];
     for (let i = 0; i < 35; i += 1) {
@@ -309,14 +324,18 @@ function Main(props) {
     fetchRandomTransactions();
     fetchRandomMessages();
     fetchRandomPosts();
+    // fetchShoesForRunner();
   }, [
     fetchRandomTargets,
     fetchRandomStatistics,
     fetchRandomTransactions,
     fetchRandomMessages,
     fetchRandomPosts,
+    // fetchShoesForRunner
   ]);
 
+  console.log(fetchShoesForRunner)
+  console.log(selectDashboard)
   return (
     <Fragment>
       <LazyLoadAddBalanceDialog
@@ -355,6 +374,7 @@ function Main(props) {
           openAddBalanceDialog={openAddBalanceDialog}
           setTargets={setTargets}
           setPosts={setPosts}
+          fetchShoesForRunner={fetchShoesForRunner}
         />
       </main>
     </Fragment>
