@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, Fragment } from "react";
+import { useHistory } from 'react-router-dom'
 import PropTypes from "prop-types";
 import { FormHelperText, TextField, Button, Checkbox, Typography, FormControlLabel } from "@mui/material";
 import withStyles from '@mui/styles/withStyles';
@@ -26,10 +27,8 @@ const styles = (theme) => ({
 });
 
 function RegisterDialog(props) {
-  const { setStatus, theme, onClose, openTermsDialog, status, classes, history } = props;
+  const { setStatus, theme, onClose, openTermsDialog, status, classes } = props;
   const [isLoading, setIsLoading] = useState(false);
-  const [firstNameStatus, setFirstNameStatus] = useState(null);
-  const [lastNameStatus, setLastNameStatus] = useState(null);
   const [hasTermsOfServiceError, setHasTermsOfServiceError] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const registerTermsCheckbox = useRef();
@@ -39,9 +38,11 @@ function RegisterDialog(props) {
   const registerUsername = useRef();
   const registerFirstName = useRef();
   const registerLastName = useRef();
+  const history = useHistory();
 
 
-  const register = useCallback(async () => {
+  const register = async () => {
+    console.log(history)
     if (!registerTermsCheckbox.current.checked) {
       setHasTermsOfServiceError(true);
       return;
@@ -53,10 +54,10 @@ function RegisterDialog(props) {
       return;
     }
     setStatus(null);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+    // setIsLoading(true);
+    // setTimeout(() => {
+    //   setIsLoading(false);
+    // }, 1500);
     try {
       const call = await fetch("https://aq4k8seahj.execute-api.us-east-1.amazonaws.com/shoes", {
           method: 'PUT',
@@ -77,22 +78,19 @@ function RegisterDialog(props) {
           });
       const response = await call.json();
       console.log(response);
-      // if (response == 'user validated') {
-
-      // }
+      const shoeRecords = response.Items.shoe_records
+      console.log(shoeRecords)
+      if (response) {
+        setTimeout(() => {
+          history.push("/c/dashboard", {state: response});
+        }, 150);
+      }
       }
       catch (err) {
         console.log(err)
       }
     console.log('User Registered')
-  }, [
-    setIsLoading,
-    setStatus,
-    setHasTermsOfServiceError,
-    registerPassword,
-    registerPasswordRepeat,
-    registerTermsCheckbox,
-  ]);
+  };
   
 
   return (

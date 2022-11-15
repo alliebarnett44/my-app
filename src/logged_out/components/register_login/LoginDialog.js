@@ -45,6 +45,7 @@ function LoginDialog(props) {
   const loginPassword = useRef();
 
   const login = async () => {
+    
     // setIsLoading(true);
     setStatus(null);
     try {
@@ -63,9 +64,10 @@ function LoginDialog(props) {
         });
     const response = await call.json();
     console.log(response);
+    console.log(history)
     if (response == 'user validated') {
       setTimeout(() => {
-        history.push("/c/dashboard");
+        history.push(`/c/dashboard/${loginEmail}`);
       }, 150);
     }
     }

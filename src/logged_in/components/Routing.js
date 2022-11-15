@@ -64,7 +64,10 @@ function Routing(props) {
     selectPosts,
     selectSubscription,
     openAddBalanceDialog,
+    fetchShoesforRunner
   } = props;
+  console.log(fetchShoesforRunner)
+  console.log(selectDashboard)
   useLocationBlocker();
   return (
     <div className={classes.wrapper}>
@@ -100,6 +103,7 @@ function Routing(props) {
           setTargets={setTargets}
           isAccountActivated={isAccountActivated}
           selectDashboard={selectDashboard}
+          fetchShoesforRunner={fetchShoesforRunner}
         />
       </Switch>
     </div>
